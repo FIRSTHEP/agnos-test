@@ -1,101 +1,90 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState } from 'react';
+import PatientForm from '../components/PatientForm';
+import StaffView from '../components/StaffView';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showForms, setShowForms] = useState<boolean>(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+  const clickSound = new Audio('./clickSound.mp3');
+
+  const handleButtonClick = (url: string) => {
+    clickSound.play().catch(err => {
+      console.error("Error playing sound:", err);
+    });
+    setLoading(true);
+    setTimeout(() => {
+      window.open(url, '_blank');
+      setLoading(false);
+    }, 500);
+  };
+
+  const handleCheckboxChange = () => {
+    setShowForms(prev => !prev);
+  };
+
+  return (
+    <main className="flex flex-col min-h-screen bg-gray-100 pt-20 relative">
+      <div className="flex flex-col items-center flex-grow">
+        <img
+          src="/agnos_logo.webp"
+          alt="Agnos Logo"
+          className="mb-6 w-80 h-auto"
+        />
+
+        <h1 className="text-5xl font-bold text-center text-gray-800 mb-4">Agnos Home Work</h1>
+
+        <p className="text-lg text-gray-700 text-center mb-6">Please choose a role:</p>
+
+        <div className="flex justify-center items-start w-full max-w-4xl relative">
+          <div className="w-1/2 p-4">
+            {showForms && <PatientForm />}
+          </div>
+          <div className="w-1/2 p-4">
+            {showForms && <StaffView />}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+        <div className="flex justify-center w-full max-w-md space-x-4 mb-10">
+          <button
+            onClick={() => handleButtonClick("/patient")}
+            className="btn flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold text-2xl py-4 rounded-lg shadow-lg transition duration-200 text-center"
+          >
+            {loading ? 'Loading...' : 'Patient'}
+          </button>
+          <button
+            onClick={() => handleButtonClick("/staff")}
+            className="btn flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold text-2xl py-4 rounded-lg shadow-lg transition duration-200 text-center"
+          >
+            {loading ? 'Loading...' : 'Staff'}
+          </button>
+        </div>
+
+        {loading && (
+          <div className="loader mb-6">
+            <div className="spinner-border animate-spin inline-block w-10 h-10 border-4 rounded-full border-t-transparent" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        )}
+
+        <label className="flex items-center mb-4">
+          <input
+            type="checkbox"
+            checked={showForms}
+            onChange={handleCheckboxChange}
+            className="mr-2"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          Dev Mode
+        </label>
+      </div>
+      <footer className="bg-[rgb(30,42,55)] border-t border-gray-300 shadow-lg text-center w-full mt-auto p-4">
+        <p className="text-white font-semibold">Developed by ADITHEP SUDCHAREE</p>
+        <p className="text-gray-300 text-sm">© {new Date().getFullYear()} Agnos Home Work. All rights reserved.</p>
       </footer>
-    </div>
+    </main>
   );
 }
