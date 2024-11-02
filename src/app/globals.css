@@ -2,9 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .spinner-border {
     border-color: #007bff;
     border-top-color: transparent;
     border-width: 0.25rem;
+    border-style: solid;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg);
+    }
 }

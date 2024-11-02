@@ -2,10 +2,11 @@
   "name": "agnos-home-work",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack & node src/server.js",
     "build": "next build",
-    "start": "next start",
+    "start": "next build & next dev --turbopack & node src/server.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -19,10 +20,13 @@
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/socket.io": "^3.0.1",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.1",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
     "postcss": "^8.4.47",
