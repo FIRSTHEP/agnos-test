@@ -8,6 +8,7 @@ import Image from 'next/image';
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
   const [showForms, setShowForms] = useState<boolean>(false);
+  
   const handleButtonClick = (url: string) => {
     setLoading(true);
     setTimeout(() => {
@@ -21,38 +22,39 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col min-h-screen bg-gray-100 pt-20 relative">
-      <div className="flex flex-col items-center flex-grow">
+    <main className="flex flex-col min-h-screen bg-gray-100 pt-10 sm:pt-20 relative">
+      <div className="flex flex-col items-center flex-grow px-4">
         <Image
           src="/agnos_logo.webp"
           alt="Agnos Logo"
-          width={500}
-          height={300}
+          width={300}
+          height={200}
           priority
+          className="w-64 sm:w-96" // Adjust logo size for mobile
         />
-        <h1 className="text-5xl font-bold text-center text-gray-800 mb-4">Agnos Home Work</h1>
-        <p className="text-lg text-gray-700 text-center mb-6">Please choose a role:</p>
+        <h1 className="text-3xl sm:text-5xl font-bold text-center text-gray-800 mb-4">Agnos Home Work</h1>
+        <p className="text-base sm:text-lg text-gray-700 text-center mb-6">Please choose a role:</p>
 
-        <div className="flex justify-center items-start w-full max-w-4xl relative">
-          <div className="w-1/2 p-4">
+        <div className="flex flex-col sm:flex-row justify-center items-start w-full max-w-4xl relative">
+          <div className="w-full sm:w-1/2 p-4">
             {showForms && <PatientForm />}
           </div>
-          <div className="w-1/2 p-4">
+          <div className="w-full sm:w-1/2 p-4">
             {showForms && <StaffView />}
           </div>
         </div>
 
-        <div className="flex justify-center w-full max-w-md space-x-4 mb-10">
+        <div className="flex flex-col sm:flex-row justify-center w-full max-w-md space-y-4 sm:space-y-0 sm:space-x-4 mb-10">
           <button
             onClick={() => handleButtonClick("/patient")}
-            className="btn flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold text-2xl py-4 rounded-lg shadow-lg transition duration-200 text-center"
+            className="btn w-full sm:flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold text-xl sm:text-2xl py-3 sm:py-4 rounded-lg shadow-lg transition duration-200 text-center"
             aria-label="Open Patient View"
           >
             {loading ? 'Loading...' : 'Patient'}
           </button>
           <button
             onClick={() => handleButtonClick("/staff")}
-            className="btn flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold text-2xl py-4 rounded-lg shadow-lg transition duration-200 text-center"
+            className="btn w-full sm:flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold text-xl sm:text-2xl py-3 sm:py-4 rounded-lg shadow-lg transition duration-200 text-center"
             aria-label="Open Staff View"
           >
             {loading ? 'Loading...' : 'Staff'}
@@ -61,13 +63,13 @@ export default function Home() {
 
         {loading && (
           <div className="loader mb-6">
-            <div className="spinner-border animate-spin inline-block w-10 h-10 border-4 rounded-full border-t-transparent border-blue-500" role="status">
+            <div className="spinner-border animate-spin inline-block w-8 sm:w-10 h-8 sm:h-10 border-4 rounded-full border-t-transparent border-blue-500" role="status">
               <span className="sr-only">Loading...</span>
             </div>
           </div>
         )}
 
-        <label className="flex items-center mb-4">
+        <label className="flex items-center mb-4 text-gray-700">
           <input
             type="checkbox"
             checked={showForms}
@@ -80,8 +82,8 @@ export default function Home() {
       </div>
 
       <footer className="bg-[rgb(30,42,55)] border-t border-gray-300 shadow-lg text-center w-full mt-auto p-4">
-        <p className="text-white font-semibold">Developed by ADITHEP SUDCHAREE</p>
-        <p className="text-gray-300 text-sm">© {new Date().getFullYear()} Agnos Home Work. All rights reserved.</p>
+        <p className="text-white font-semibold text-sm sm:text-base">Developed by ADITHEP SUDCHAREE</p>
+        <p className="text-gray-300 text-xs sm:text-sm">© {new Date().getFullYear()} Agnos Home Work. All rights reserved.</p>
       </footer>
     </main>
   );

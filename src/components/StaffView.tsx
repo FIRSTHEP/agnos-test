@@ -13,27 +13,27 @@ const StaffView: React.FC = () => {
 
   useEffect(() => {
     if (!socket) {
-        setStatus('Offline');
-        return;
+      setStatus('Offline');
+      return;
     }
 
     setIsSocketConnected(true);
     setStatus('Online');
 
     const handlePatientFormUpdate = (data: FormData) => {
-        setFormData(data);
-        setStatus('Typing...');
-        setTimeout(() => isSocketConnected && setStatus('Online'), 1500);
+      setFormData(data);
+      setStatus('Typing...');
+      setTimeout(() => isSocketConnected && setStatus('Online'), 1500);
     };
 
     const handleDisconnect = () => {
-        setStatus('Patient has disconnected');
-        setIsSocketConnected(false);
+      setStatus('Patient has disconnected');
+      setIsSocketConnected(false);
     };
 
     const handleCustomDisconnect = () => {
-        setStatus('Offline');
-        setIsSocketConnected(false);
+      setStatus('Offline');
+      setIsSocketConnected(false);
     };
 
     socket.on('patientFormUpdate', handlePatientFormUpdate);
@@ -41,11 +41,11 @@ const StaffView: React.FC = () => {
     socket.on('disconnect_patient', handleCustomDisconnect);
 
     return () => {
-        socket.off('patientFormUpdate', handlePatientFormUpdate);
-        socket.off('disconnect', handleDisconnect);
-        socket.off('disconnect_patient', handleCustomDisconnect);
+      socket.off('patientFormUpdate', handlePatientFormUpdate);
+      socket.off('disconnect', handleDisconnect);
+      socket.off('disconnect_patient', handleCustomDisconnect);
     };
-}, [socket, isSocketConnected]);
+  }, [socket, isSocketConnected]);
 
   const renderPatientInfo = (label: string, value: string | undefined) => (
     <div className="flex justify-between py-1 border-b last:border-b-0">

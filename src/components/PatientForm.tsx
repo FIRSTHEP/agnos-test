@@ -5,7 +5,7 @@ import { useSocket } from '../hooks/useSocket';
 import InputField from './InputField';
 import SelectField from './SelectField';
 import { FormData, EmergencyContact } from '../interfaces/FormData';
-import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaLanguage, FaCross } from 'react-icons/fa';
+import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaLanguage, FaCross, FaGlobeAmericas } from 'react-icons/fa';
 
 const PatientForm: React.FC = () => {
   const socket = useSocket();
@@ -68,7 +68,7 @@ const PatientForm: React.FC = () => {
       }
     }
 
-    if (name === 'phone') {
+    if (name === 'phone' || name == 'emergencyContactRelationship') {
       const phoneRegex = /^[0-9]*$/;
       if (!phoneRegex.test(value) || value.length > 10) {
         setErrors((prevErrors) => ({
@@ -118,7 +118,6 @@ const PatientForm: React.FC = () => {
   return (
     <form className="max-w-lg mx-auto bg-white p-8 mt-10 mb-10 rounded-lg shadow-lg border border-gray-300">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Patient Form</h2>
-
       <InputField
         label="First Name"
         type="text"
@@ -232,7 +231,7 @@ const PatientForm: React.FC = () => {
         value={formData.nationality}
         onChange={handleChange}
         required
-        icon={<FaLanguage className="text-gray-500" />}
+        icon={<FaGlobeAmericas className="text-gray-500" />}
       />
 
       <InputField
@@ -241,7 +240,7 @@ const PatientForm: React.FC = () => {
         name="emergencyContactName"
         value={formData.emergencyContact?.name}
         onChange={(e) => handleEmergencyContactChange(e, 'name')}
-        icon={<FaPhone className="text-gray-500" />}
+        icon={<FaUser className="text-gray-500" />}
       />
 
       <InputField
