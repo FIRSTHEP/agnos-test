@@ -1,27 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import PatientForm from '../components/PatientForm'; // Import your PatientForm component
-import StaffView from '../components/StaffView'; // Import your StaffView component
-=======
 import PatientForm from '../components/PatientForm';
 import StaffView from '../components/StaffView';
 import Image from 'next/image';
->>>>>>> main
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
-<<<<<<< HEAD
-  const [showForms, setShowForms] = useState<boolean>(false); // State to manage form visibility
-=======
   const [showForms, setShowForms] = useState<boolean>(false);
-
-<<<<<<< HEAD
->>>>>>> main
-
-=======
->>>>>>> main
   const handleButtonClick = (url: string) => {
     setLoading(true);
     setTimeout(() => {
