@@ -8,7 +8,7 @@ const server = http.createServer(app);
 
 // Get environment variables with fallbacks
 const PORT = process.env.PORT || 4000;
-const SOCKET_URL = process.env.SOCKET_URL || `http://localhost:${PORT}`;
+const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || `http://localhost:${PORT}`;
 
 // Initialize Socket.IO with CORS configuration
 const io = new Server(server, {
