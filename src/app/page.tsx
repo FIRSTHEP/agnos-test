@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import PatientForm from '../components/PatientForm';
 import StaffView from '../components/StaffView';
+import Image from 'next/image';
+
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,12 +26,12 @@ export default function Home() {
   return (
     <main className="flex flex-col min-h-screen bg-gray-100 pt-20 relative">
       <div className="flex flex-col items-center flex-grow">
-        <img
-          src="/agnos_logo.webp"
-          alt="Agnos Logo"
-          className="mb-6 w-80 h-auto"
-        />
-
+        <Image
+          src="/path/to/image.jpg"
+          alt="Description of image"
+          width={500}
+          height={300}
+          priority={true} />
         <h1 className="text-5xl font-bold text-center text-gray-800 mb-4">Agnos Home Work</h1>
 
         <p className="text-lg text-gray-700 text-center mb-6">Please choose a role:</p>

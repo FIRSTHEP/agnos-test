@@ -157,7 +157,7 @@ const PatientForm: React.FC = () => {
         label="Middle Name (optional)"
         type="text"
         name="middleName"
-        value={formData.middleName || ""}
+        value={formData.middleName}
         onChange={handleChange}
         icon={<FaUser className="text-gray-500" />}
       />
@@ -213,7 +213,7 @@ const PatientForm: React.FC = () => {
         label="Email"
         type="email"
         name="email"
-        value={formData.email || ""}
+        value={formData.email}
         onChange={handleChange}
         error={errors.email}
         icon={<FaEnvelope className="text-gray-500" />}
@@ -233,7 +233,7 @@ const PatientForm: React.FC = () => {
         label="Address 2 (optional)"
         type="text"
         name="address2"
-        value={formData.address2 || ""}
+        value={formData.address2}
         onChange={handleChange}
         icon={<FaMapMarkerAlt className="text-gray-500" />}
       />
