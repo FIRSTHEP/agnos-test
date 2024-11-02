@@ -9,12 +9,7 @@ export default function Home() {
   const [showForms, setShowForms] = useState<boolean>(false);
 
 
-  const clickSound = new Audio('./clickSound.mp3');
-
   const handleButtonClick = (url: string) => {
-    clickSound.play().catch(err => {
-      console.error("Error playing sound:", err);
-    });
     setLoading(true);
     setTimeout(() => {
       window.open(url, '_blank');
