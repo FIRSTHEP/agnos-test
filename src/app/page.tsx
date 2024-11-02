@@ -6,7 +6,12 @@ import StaffView from '../components/StaffView'; // Import your StaffView compon
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
+<<<<<<< HEAD
   const [showForms, setShowForms] = useState<boolean>(false); // State to manage form visibility
+=======
+  const [showForms, setShowForms] = useState<boolean>(false);
+
+>>>>>>> main
 
   const handleButtonClick = (url: string) => {
     setLoading(true);
