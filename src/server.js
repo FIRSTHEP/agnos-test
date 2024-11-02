@@ -4,7 +4,7 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const SOCKET_URL = "http://localhost:4000"
+const SOCKET_URL = "http://localhost:4000";
 const io = new Server(server, {
   cors: {
     origin: SOCKET_URL,
