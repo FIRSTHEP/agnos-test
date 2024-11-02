@@ -10,7 +10,7 @@ interface InputFieldProps {
   required?: boolean;
   placeholder?: string;
   maxLength?: number;
-  icon?: React.ReactNode; // New prop for the icon
+  icon?: React.ReactNode;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -23,14 +23,14 @@ const InputField: React.FC<InputFieldProps> = ({
   required,
   placeholder,
   maxLength,
-  icon // Destructure the icon prop
+  icon
 }) => {
   return (
-    <div className="mb-4 relative"> {/* Added relative positioning for the icon */}
+    <div className="mb-4 relative"> 
       <label className="block mb-1 font-semibold text-gray-700">{label}</label>
-      <div className="flex items-center border rounded-lg overflow-hidden"> {/* Flex container for input and icon */}
+      <div className="flex items-center border rounded-lg overflow-hidden">
         {icon && (
-          <span className="flex items-center justify-center pl-2.5 pr-2.5 text-gray-600"> {/* Removed background color */}
+          <span className="flex items-center justify-center pl-2.5 pr-2.5 text-gray-600">
             {icon}
           </span>
         )}

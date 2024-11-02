@@ -4,7 +4,10 @@ import { Server } from 'socket.io';
 
 const app = express();
 const server = http.createServer(app);
-const SOCKET_URL = "http://localhost:4000";
+
+const PORT = process.env.PORT || 4000;
+const SOCKET_URL = process.env.SOCKET_URL;
+
 const io = new Server(server, {
   cors: {
     origin: SOCKET_URL,
@@ -20,4 +23,4 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 });
 
-server.listen(4000, () => console.log(`Socket.IO server running on ${SOCKET_URL}`));
+server.listen(PORT, () => console.log(`Socket.IO server running on ${SOCKET_URL}`));

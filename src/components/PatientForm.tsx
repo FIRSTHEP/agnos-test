@@ -1,4 +1,4 @@
-"use client"; // This line marks the component as a client component
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { useSocket } from '../hooks/useSocket';
