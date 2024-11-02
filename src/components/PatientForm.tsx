@@ -5,7 +5,6 @@ import { useSocket } from '../hooks/useSocket';
 import InputField from './InputField';
 import SelectField from './SelectField';
 import { FormData, EmergencyContact } from '../interfaces/FormData';
-import { validateEmail, validatePhone } from '../utils/validation';
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaLanguage, FaCross } from 'react-icons/fa';
 
 const PatientForm: React.FC = () => {
@@ -56,8 +55,30 @@ const PatientForm: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
-    if (name === 'phone' && isNaN(Number(value))) {
-      return;
+    if (name === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: 'Please enter a valid email address.'
+        }));
+        return;
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, email: '' }));
+      }
+    }
+
+    if (name === 'phone') {
+      const phoneRegex = /^[0-9]*$/;
+      if (!phoneRegex.test(value) || value.length > 10) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          phone: 'Phone number must be 10 digits and contain only numbers.'
+        }));
+        return;
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, phone: '' }));
+      }
     }
 
     setFormData((prevData) => {
@@ -65,40 +86,11 @@ const PatientForm: React.FC = () => {
         ...prevData,
         [name]: value,
       };
-
       if (socket) {
         socket.emit('submitPatientData', updatedData);
       }
       return updatedData;
     });
-
-    if (name === 'email') {
-      if (!validateEmail(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "Email format is invalid.",
-        }));
-      } else {
-        setErrors((prevErrors) => {
-          const { email, ...rest } = prevErrors;
-          return rest;
-        });
-      }
-    }
-
-    if (name === 'phone') {
-      if (!validatePhone(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          phone: "Phone number must be 10 digits.",
-        }));
-      } else {
-        setErrors((prevErrors) => {
-          const { phone, ...rest } = prevErrors;
-          return rest;
-        });
-      }
-    }
   };
 
   const handleEmergencyContactChange = (
@@ -116,26 +108,11 @@ const PatientForm: React.FC = () => {
         ...prevData,
         emergencyContact: updatedContact,
       };
-
       if (socket) {
         socket.emit('submitPatientData', updatedData);
       }
       return updatedData;
     });
-
-    if (field === 'relationship') {
-      if (updatedContact.name.trim() !== '' && !validatePhone(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          emergencyContactRelationship: "Relationship is required when contact name is provided.",
-        }));
-      } else {
-        setErrors((prevErrors) => {
-          const { emergencyContactRelationship, ...rest } = prevErrors;
-          return rest;
-        });
-      }
-    }
   };
 
   return (
@@ -264,7 +241,7 @@ const PatientForm: React.FC = () => {
         name="emergencyContactName"
         value={formData.emergencyContact?.name}
         onChange={(e) => handleEmergencyContactChange(e, 'name')}
-        icon={<FaUser className="text-gray-500" />}
+        icon={<FaPhone className="text-gray-500" />}
       />
 
       <InputField
@@ -273,16 +250,14 @@ const PatientForm: React.FC = () => {
         name="emergencyContactRelationship"
         value={formData.emergencyContact?.relationship}
         onChange={(e) => handleEmergencyContactChange(e, 'relationship')}
-        maxLength={10}
-        error={errors.emergencyContactRelationship}
         icon={<FaPhone className="text-gray-500" />}
       />
 
       <InputField
-        label="Religion (optional)"
+        label="Religion"
         type="text"
         name="religion"
-        value={formData.religion || ""}
+        value={formData.religion}
         onChange={handleChange}
         icon={<FaCross className="text-gray-500" />}
       />

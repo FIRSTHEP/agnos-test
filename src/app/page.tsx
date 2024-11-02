@@ -27,7 +27,7 @@ export default function Home() {
     <main className="flex flex-col min-h-screen bg-gray-100 pt-20 relative">
       <div className="flex flex-col items-center flex-grow">
         <Image
-          src="/path/to/image.jpg"
+          src="/agnos_logo.webp"
           alt="Description of image"
           width={500}
           height={300}
