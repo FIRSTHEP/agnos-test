@@ -1,20 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
-import PatientForm from '../components/PatientForm';
-import StaffView from '../components/StaffView';
+import PatientForm from '../components/PatientForm'; // Import your PatientForm component
+import StaffView from '../components/StaffView'; // Import your StaffView component
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
-  const [showForms, setShowForms] = useState<boolean>(false);
-
-
-  const clickSound = new Audio('./clickSound.mp3');
+  const [showForms, setShowForms] = useState<boolean>(false); // State to manage form visibility
 
   const handleButtonClick = (url: string) => {
-    clickSound.play().catch(err => {
-      console.error("Error playing sound:", err);
-    });
     setLoading(true);
     setTimeout(() => {
       window.open(url, '_blank');
