@@ -36,12 +36,12 @@ const StaffView: React.FC = () => {
         setIsSocketConnected(false);
     };
 
-    socket.on('patient_form_update', handlePatientFormUpdate);
+    socket.on('patientFormUpdate', handlePatientFormUpdate);
     socket.on('disconnect', handleDisconnect);
     socket.on('disconnect_patient', handleCustomDisconnect);
 
     return () => {
-        socket.off('patient_form_update', handlePatientFormUpdate);
+        socket.off('patientFormUpdate', handlePatientFormUpdate);
         socket.off('disconnect', handleDisconnect);
         socket.off('disconnect_patient', handleCustomDisconnect);
     };
